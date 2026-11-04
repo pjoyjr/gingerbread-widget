@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gingerbread Duel Arena — Local Test Lab</title>
+  <link rel="stylesheet" href="some.css" />
+  <style>
+    *{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;color:#f7f1ff;background:radial-gradient(ellipse at 70% 20%,#40265f 0%,#160b24 58%,#0c0818 100%);font:14px system-ui,-apple-system,Segoe UI,sans-serif}
+    .test-stage{position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(transparent calc(100% - 55px),rgba(240,206,255,.06) calc(100% - 55px));}
+    .stage-title{position:fixed;top:24px;right:24px;color:#e9d1ffb0;text-align:right;pointer-events:none}
+    .stage-title h1{margin:0 0 4px;font-size:clamp(22px,3vw,38px);font-weight:800;letter-spacing:-.04em}.stage-title small{font-size:12px}
+    .test-panel{position:fixed;z-index:9999;top:16px;left:16px;bottom:16px;width:min(360px,calc(100vw - 32px));overflow:auto;border:1px solid #7658a5;background:rgba(20,11,35,.95);border-radius:16px;padding:18px;box-shadow:0 12px 50px #0009}
+    .header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+    .header h2{font-size:20px;margin:0;letter-spacing:-.025em}
+    .tag{font-size:10px;text-transform:uppercase;letter-spacing:.12em;background:#5c2e91;padding:5px 7px;border-radius:30px;white-space:nowrap}
+    p{line-height:1.5;color:#cec0df;margin:8px 0 18px;font-size:12px}
+    .section-title{font-size:10px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;color:#d3b3f3;margin:18px 0 10px}
+    label{font-size:12px;display:block;margin-bottom:6px;color:#e6daef}
+    input,select{display:block;width:100%;padding:10px 12px;border:1px solid #665477;border-radius:9px;background:#120b1b;color:#f5efff;font:14px system-ui}
+    input:focus,select:focus{outline:2px solid #c196ff;border-color:#c196ff}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+    .field{margin-bottom:12px}
+    .btnrow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.btnrow + .btnrow{margin-top:8px}
+    button{border:1px solid #8c67bf;background:#552c89;border-radius:9px;padding:10px 6px;color:white;font-size:12px;font-weight:700;cursor:pointer}
+    button:hover{background:#7743b6}button.secondary{background:#30233f;border-color:#6f5686}
+    button.primary{background:#9b59df;border-color:#b67eff;color:#1a0b24}
+    .send{width:100%;margin-top:10px}
+    .status{border:1px solid #674d87;border-radius:9px;padding:9px 10px;background:#2b1a3c;font-size:12px;color:#d9c2f0;margin-top:12px;min-height:35px}
+    .log{padding:10px;background:#100a1d;border:1px solid #463455;border-radius:9px;min-height:70px;max-height:140px;overflow:auto;font:11px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#d2bdea;white-space:pre-wrap;overflow-wrap:anywhere}
+    .note{font-size:11px;color:#c3b3d4;line-height:1.5}
+    code{color:#e2bdff}a{color:#dcb2ff}
+    .offline-mascot{display:grid;grid-area:1/1;place-items:center;width:var(--ginger-size);height:var(--ginger-size);font-size:calc(var(--ginger-size) * .60);line-height:1;text-shadow:0 7px 12px #0008;user-select:none}
+    .ginger-container.dodging .offline-mascot{animation:gb-matrix-dodge 1600ms ease-in-out both;transform-origin:50% 90%}
+    .ginger-container.spectating .offline-mascot{animation:gb-watch-bounce 650ms ease-in-out infinite alternate}
+    .ginger-container.duel-winner .offline-mascot,.ginger-container:not(.duelist):not(.spectating) .offline-mascot.dance{animation:gb-mascot-dance .35s ease-in-out infinite alternate}
+    .ginger-container.duel-loser .offline-mascot{rotate:75deg;opacity:.5}
+    @keyframes gb-mascot-dance{from{rotate:-18deg;translate:0 -6px}to{rotate:18deg;translate:0 0}}
+    .collapse{position:fixed;top:16px;left:16px;z-index:10001;display:none;padding:9px 12px}
+    @media(max-width:680px){.stage-title{top:16px;right:16px}.stage-title h1{font-size:18px}.test-panel{bottom:8px;top:8px}}
+  </style>
+</head>
+<body>
+  <div class="test-stage"></div>
+  <div class="stage-title"><h1>Gingerbread Duel Arena</h1><small>Local preview • not connected to chat or StreamElements</small></div>
+  <button id="reopen" class="collapse">Show controls</button>
+  <aside class="test-panel" id="panel" aria-label="Test controls">
+    <div class="header"><h2>🍪 Gingerbread Lab</h2><span class="tag">Test mode</span></div>
+    <p>Uses the updated StreamElements widget code and your pasted settings. Preview only — not connected to a live stream.</p>
+    <div class="btnrow"><button id="spawnTest">+ Spawn</button><button id="throwTest">❄ Throw</button><button id="dodgeTest">🕶 Dodge</button><button id="danceTest">💃 Dance</button></div>
+    <div class="btnrow"><button id="crowdTest">👀 Crowd</button><button class="primary" id="duelTest">⚔️ DUEL!</button><button class="secondary" id="clearTest">Clear all</button><button class="secondary" id="quickDemo">▶ Demo</button></div>
+    <div class="section-title">Simulate a chat viewer</div>
+    <div class="two">
+      <div class="field"><label for="nick">Username</label><input id="nick" value="CookieFan" maxlength="48"></div>
+      <div class="field"><label for="role">Role</label><select id="role"><option value="viewer">Regular viewer</option><option value="subscriber" selected>Subscriber</option><option value="vip">VIP</option><option value="moderator">Moderator</option><option value="broadcaster">Broadcaster</option><option value="member">YouTube member</option></select></div>
+    </div>
+    <div class="btnrow"><button id="spawnChat">!gb</button><button id="throwChat">!throw</button><button id="dodgeChat">!dodge</button><button id="danceChat">!dance</button></div>
+    <div class="btnrow"><button id="duelChat">!duel @…</button><button id="clearChat" class="secondary">!cleargb</button></div>
+    <div class="field" style="margin-top:12px"><label for="command">Chat message (including an optional target)</label><input id="command" value="!gb" placeholder="!dodge"></div>
+    <button id="send" class="primary send">Send simulated chat message</button>
+    <div class="status" id="status" role="status">Loading settings…</div>
+    <div class="section-title">Events sent to the widget</div>
+    <div id="log" class="log" aria-live="polite"></div>
+    <p class="note"><b>Fastest demo:</b> Click <b>▶ Demo</b> to spawn a crowd and start a duel. Or spawn <code>CookieFan</code> and <code>Frosty</code> using <code>!gb</code>, then send <code>!duel @Frosty</code> as CookieFan. The audience moves to the edges, both duelists throw, RNG picks the winner and the loser falls over. The winner dances before everyone resumes walking. No one dies permanently in duels. A global 25-second cooldown prevents repeated duels.</p>
+    <button id="hide" class="secondary send">Hide control panel for full-screen preview</button>
+    <p class="note">Animation sheets come from StreamElements CDN and require internet. If nothing appears, press F12 and check the Console / Network tabs. Refresh after editing <code>current-settings.json</code>.</p>
+  </aside>
+  <script src="some.js"></script>
+  <script>
+    (() => {
+      'use strict';
+      const byId = id => document.getElementById(id);
+      const logEl = byId('log');
+      const stamp = () => new Date().toLocaleTimeString();
+      function log(text){ const line=document.createElement('div'); line.textContent=`[${stamp()}] ${text}`; logEl.prepend(line); while(logEl.children.length>24)logEl.lastElementChild.remove(); }
+      function dispatch(listener, event){ window.dispatchEvent(new CustomEvent('onEventReceived',{detail:{listener,event}})); }
+      function testButton(field){
+        // This matches the event:test format expected by the UPLOADED JS.
+        dispatch('event:test',{listener:'widget-button',field});
+        log('Test button: '+field);
+      }
+      function roleTags(role,nick){
+        const tags={'user-id':role==='broadcaster'?'777':`${role}:${nick.toLowerCase()}`,'display-name':nick};
+        if(role==='subscriber')tags.subscriber='1';
+        if(role==='vip')tags.vip='1';
+        if(role==='moderator')tags.mod='1';
+        if(role==='broadcaster')tags['room-id']='777';
+        return tags;
+      }
+      function sendChat(text){
+        const nick=byId('nick').value.trim()||'CookieFan';
+        const role=byId('role').value;
+        const data={text,nick:nick.toLowerCase(),displayName:nick,tags:roleTags(role,nick)};
+        if(role==='member')data.authorDetails={isChatSponsor:true};
+        dispatch('message',{data});
+        log(`${role} ${nick}: ${text}`);
+        updateCount();
+      }
+      function updateCount(){const active=document.querySelectorAll('.ginger-container:not(.hidden-vid)').length;byId('status').textContent=`Characters in page: ${active}. See the on-screen characters for visual results.`;}
+      byId('spawnTest').addEventListener('click',()=>testButton('testSpawn'));
+      byId('throwTest').addEventListener('click',()=>testButton('testThrow'));
+      byId('dodgeTest').addEventListener('click',()=>testButton('testDodge'));
+      byId('danceTest').addEventListener('click',()=>testButton('testDance'));
+      byId('duelTest').addEventListener('click',()=>testButton('testDuel'));
+      byId('crowdTest').addEventListener('click',()=>{for(let i=0;i<6;i++)testButton('testSpawn');});
+      byId('quickDemo').addEventListener('click',()=>{
+        for(let i=0;i<6;i++)testButton('testSpawn');
+        setTimeout(()=>testButton('testDuel'),4700);
+      });
+      byId('clearTest').addEventListener('click',()=>testButton('testClear'));
+      byId('spawnChat').addEventListener('click',()=>sendChat('!gb'));
+      byId('throwChat').addEventListener('click',()=>sendChat('!throw'));
+      byId('dodgeChat').addEventListener('click',()=>sendChat('!dodge'));
+      byId('danceChat').addEventListener('click',()=>sendChat('!dance'));
+      byId('duelChat').addEventListener('click',()=>{
+        byId('command').value='!duel @Frosty';
+        byId('command').focus();
+      });
+      byId('clearChat').addEventListener('click',()=>sendChat('!cleargb'));
+      byId('send').addEventListener('click',()=>sendChat(byId('command').value.trim()));
+      byId('command').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat(byId('command').value.trim());});
+      byId('hide').addEventListener('click',()=>{byId('panel').style.display='none';byId('reopen').style.display='block';});
+      byId('reopen').addEventListener('click',()=>{byId('panel').style.display='block';byId('reopen').style.display='none';});
+      async function start(){
+        try{
+          const res=await fetch('current-settings.json',{cache:'no-store'});
+          if(!res.ok)throw new Error('HTTP '+res.status);
+          const fieldData=await res.json();
+          window.dispatchEvent(new CustomEvent('onWidgetLoad',{detail:{fieldData}}));
+          log('Widget initialized: !gb, !throw, !dodge, !dance, !duel @user, !cleargb.');
+          updateCount();
+        }catch(err){byId('status').textContent='Error loading configuration: '+err.message+' — run this through a local HTTP server.';log('LOAD ERROR: '+err.message);}
+      }
+      start();
+      let fallbackTimeout = false;
+      setTimeout(() => { fallbackTimeout = true; }, 3800);
+      setInterval(() => {
+        updateCount();
+        // Only the LOCAL tester uses emoji stand-ins if remote StreamElements
+        // sprite sheets fail to load. The deployed widget is never changed.
+        if (sheetStore.state === 'ready') return;
+        if (!sheetStore.failed && !fallbackTimeout) return;
+        gingers.forEach(g => {
+          if (!g.container.querySelector('.offline-mascot')) {
+            const mascot=document.createElement('div');
+            mascot.className='offline-mascot';
+            mascot.textContent='🍪';
+            g.container.appendChild(mascot);
+            g.onReveal();
+          }
+          const mascot=g.container.querySelector('.offline-mascot');
+          mascot.classList.toggle('dance',g.state==='dance');
+        });
+        const sheetWarn=document.querySelector('.gb-warning');
+        if(sheetWarn)sheetWarn.textContent='Preview fallback: StreamElements artwork unavailable here; using 🍪 placeholders. Test the real sprites in StreamElements.';
+      },350);
+    })();
+  </script>
+</body>
+</html>

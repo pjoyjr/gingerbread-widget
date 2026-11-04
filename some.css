@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
+:root {
+    --ginger-size: 35vh;
+    --bubble-display: block;
+    --bubble-scale: 1;
+    --bottom-offset: 0px;
+    --ground: calc(var(--bottom-offset) - var(--ginger-size) * 0.07);
+}
+
+html, body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.ginger-container {
+    position: fixed;
+    left: 0;
+    bottom: var(--ground);
+    width: var(--ginger-size);
+    height: var(--ginger-size);
+    z-index: 999;
+    display: grid;
+    place-items: end center;
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform;
+    transition: opacity 0.35s ease;
+}
+
+.ginger-container.visible {
+    opacity: 1;
+}
+
+.ginger-vid,
+.ginger-canvas {
+    grid-area: 1 / 1;
+    display: block;
+    width: var(--ginger-size);
+    height: var(--ginger-size);
+    object-fit: contain;
+    opacity: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.ginger-vid.mirror,
+.ginger-canvas.mirror {
+    transform: translateX(7%) scaleX(-1);
+}
+
+.hidden-vid {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+.preparing {
+    display: block !important;
+    opacity: 0 !important;
+    z-index: 1;
+}
+
+.speech-bubble {
+    display: var(--bubble-display);
+    position: absolute;
+    bottom: 100%;
+    left: 53.5%;
+    transform-origin: bottom center;
+    transform: translateX(-50%) scale(var(--bubble-scale));
+    background: #fffafa;
+    border: 2px solid #262626;
+    border-radius: 15px;
+    padding: 10px 15px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #262626;
+    text-align: center;
+    white-space: nowrap;
+    margin-bottom: 10px;
+    z-index: 1000;
+}
+
+.speech-bubble.pulse {
+    animation: gb-pulse 0.45s ease;
+}
+
+@keyframes gb-pulse {
+    0% { scale: 1; }
+    40% { scale: 1.18; }
+    100% { scale: 1; }
+}
+
+.speech-bubble:before {
+    content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 0;
+    border: 13px solid transparent; border-top-color: #262626; border-bottom: 0;
+    margin-left: -13px; margin-bottom: -13px; z-index: -1;
+}
+
+.speech-bubble:after {
+    content: ''; position: absolute; bottom: 3px; left: 50%; width: 0; height: 0;
+    border: 13px solid transparent; border-top-color: #fffafa; border-bottom: 0;
+    margin-left: -13px; margin-bottom: -13px;
+}
+
+.snowball-wrap {
+    position: fixed;
+    left: 0;
+    bottom: var(--ground);
+    width: 0;
+    height: 0;
+    z-index: 1001;
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+.snowball {
+    position: absolute;
+    background-repeat: no-repeat;
+    will-change: transform, opacity;
+}
+
+.gb-warning {
+    position: fixed;
+    left: 16px;
+    top: 16px;
+    max-width: 640px;
+    padding: 12px 16px;
+    background: #fffafa;
+    border: 2px solid #262626;
+    border-radius: 12px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #262626;
+    z-index: 2000;
+}
+/* Matrix-style dodge: CSS rotates the existing sprite sheet frame without extra assets.
+   Independent `rotate` keeps the canvas' mirrored transform working correctly. */
+.ginger-container.dodging .ginger-canvas,
+.ginger-container.dodging .ginger-vid {
+    transform-origin: 50% 90%;
+    animation: gb-matrix-dodge 1600ms ease-in-out both;
+}
+
+.ginger-container.dodging .speech-bubble {
+    border-color: #5cf3a0;
+    box-shadow: 0 0 12px rgba(92, 243, 160, 0.55);
+}
+
+@keyframes gb-matrix-dodge {
+    0%   { rotate: 0deg; }
+    14%  { rotate: var(--matrix-lean, 62deg); }
+    75%  { rotate: var(--matrix-lean, 62deg); }
+    100% { rotate: 0deg; }
+}
+
+/* Gingerbread dance/duel arena: uses existing idle, throw, dance and hit artwork. */
+.gb-duel-banner {
+    position: fixed;
+    z-index: 2100;
+    top: 11%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: min(90vw, 900px);
+    padding: 14px 28px;
+    border: 2px solid #ffda8a;
+    border-radius: 18px;
+    background: rgba(38, 10, 64, .88);
+    box-shadow: 0 12px 42px rgba(0, 0, 0, .55), 0 0 28px rgba(198, 123, 255, .28);
+    font: 800 clamp(22px, 3.4vw, 52px)/1.2 'Fredoka', sans-serif;
+    text-align: center;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
+.gb-duel-banner.result {
+    color: #ffe6a1;
+    border-color: #ffe6a1;
+    animation: gb-winner-pop .5s ease-out both;
+}
+@keyframes gb-winner-pop {
+    0% { transform: translateX(-50%) scale(.8); }
+    75% { transform: translateX(-50%) scale(1.07); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+.ginger-container.spectating .ginger-canvas,
+.ginger-container.spectating .ginger-vid {
+    animation: gb-watch-bounce 650ms ease-in-out infinite alternate;
+}
+@keyframes gb-watch-bounce { from { translate: 0 0; } to { translate: 0 -6px; } }
+.ginger-container.duelist .speech-bubble { border-color: #dcb0ff; }
+.ginger-container.duel-winner .speech-bubble { border-color: #f6da6a; box-shadow: 0 0 18px #f6da6a88; }
+.ginger-container.duel-loser .speech-bubble { border-color: #8f8f98; }

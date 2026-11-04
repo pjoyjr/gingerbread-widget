@@ -1,0 +1,488 @@
+{
+  "commandName": {
+    "type": "text",
+    "label": "Spawn Command(s)",
+    "value": "!gb",
+    "group": "💬 Commands"
+  },
+  "commandThrow": {
+    "type": "text",
+    "label": "Throw Command(s)",
+    "value": "!throw",
+    "group": "💬 Commands"
+  },
+  "commandDodge": {
+    "type": "text",
+    "label": "Dodge Command(s)",
+    "value": "!dodge",
+    "group": "💬 Commands"
+  },
+  "commandDance": {
+    "type": "text",
+    "label": "Dance Command(s)",
+    "value": "!dance",
+    "group": "💃 Dance Settings"
+  },
+  "commandDuel": {
+    "type": "text",
+    "label": "Duel Command(s)",
+    "value": "!duel",
+    "group": "⚔️ Duel Settings"
+  },
+  "commandOff": {
+    "type": "text",
+    "label": "Clear Command(s)",
+    "value": "!cleargb",
+    "group": "💬 Commands"
+  },
+  "allowSpawnInfo": {
+    "type": "hidden",
+    "label": "𝗪𝗛𝗢 𝗖𝗔𝗡 𝗦𝗣𝗔𝗪𝗡:",
+    "value": "",
+    "group": "🔐 Spawn Permissions"
+  },
+  "allowSpawnEveryone": {
+    "type": "checkbox",
+    "label": "Allow Everyone (⚠️ Overwrites everything)",
+    "value": false,
+    "group": "🔐 Spawn Permissions"
+  },
+  "allowSpawnViewers": {
+    "type": "checkbox",
+    "label": "Allow Viewers",
+    "value": false,
+    "group": "🔐 Spawn Permissions"
+  },
+  "allowSpawnSubscribers": {
+    "type": "checkbox",
+    "label": "Allow Subscribers (Twitch)",
+    "value": true,
+    "group": "🔐 Spawn Permissions"
+  },
+  "allowSpawnVIPs": {
+    "type": "checkbox",
+    "label": "Allow VIPs (Twitch)",
+    "value": true,
+    "group": "🔐 Spawn Permissions"
+  },
+  "allowSpawnMembers": {
+    "type": "checkbox",
+    "label": "Allow Members (YouTube)",
+    "value": false,
+    "group": "🔐 Spawn Permissions"
+  },
+  "allowSpawnModerators": {
+    "type": "checkbox",
+    "label": "Allow Moderators",
+    "value": true,
+    "group": "🔐 Spawn Permissions"
+  },
+  "allowSpawnBroadcaster": {
+    "type": "checkbox",
+    "label": "Allow Broadcaster",
+    "value": true,
+    "group": "🔐 Spawn Permissions"
+  },
+  "allowThrowInfo": {
+    "type": "hidden",
+    "label": "𝗪𝗛𝗢 𝗖𝗔𝗡 𝗧𝗛𝗥𝗢𝗪:",
+    "value": "",
+    "group": "❄️ Throw Settings"
+  },
+  "allowThrowEveryone": {
+    "type": "checkbox",
+    "label": "Allow Everyone (⚠️ Overwrites everything)",
+    "value": false,
+    "group": "❄️ Throw Settings"
+  },
+  "allowThrowViewers": {
+    "type": "checkbox",
+    "label": "Allow Viewers",
+    "value": false,
+    "group": "❄️ Throw Settings"
+  },
+  "allowThrowSubscribers": {
+    "type": "checkbox",
+    "label": "Allow Subscribers (Twitch)",
+    "value": true,
+    "group": "❄️ Throw Settings"
+  },
+  "allowThrowVIPs": {
+    "type": "checkbox",
+    "label": "Allow VIPs (Twitch)",
+    "value": true,
+    "group": "❄️ Throw Settings"
+  },
+  "allowThrowMembers": {
+    "type": "checkbox",
+    "label": "Allow Members (YouTube)",
+    "value": false,
+    "group": "❄️ Throw Settings"
+  },
+  "allowThrowModerators": {
+    "type": "checkbox",
+    "label": "Allow Moderators",
+    "value": true,
+    "group": "❄️ Throw Settings"
+  },
+  "allowThrowBroadcaster": {
+    "type": "checkbox",
+    "label": "Allow Broadcaster",
+    "value": true,
+    "group": "❄️ Throw Settings"
+  },
+  "sepThrowCooldowns": {
+    "type": "hidden",
+    "label": "───── ⏱️ 𝐂𝐎𝐎𝐋𝐃𝐎𝐖𝐍𝐒 ─────",
+    "value": "",
+    "group": "❄️ Throw Settings"
+  },
+  "throwUserCooldown": {
+    "type": "number",
+    "label": "Per User Cooldown (sec)",
+    "value": 3,
+    "min": 0,
+    "max": 3600,
+    "step": 1,
+    "group": "❄️ Throw Settings"
+  },
+  "throwGlobalCooldown": {
+    "type": "number",
+    "label": "Global Cooldown (sec)",
+    "value": 0,
+    "min": 0,
+    "max": 3600,
+    "step": 1,
+    "group": "❄️ Throw Settings"
+  },
+  "dodgeUserCooldown": {
+    "type": "number",
+    "label": "Dodge Cooldown (sec)",
+    "value": 8,
+    "min": 0,
+    "max": 3600,
+    "step": 1,
+    "group": "🕶️ Matrix Dodge"
+  },
+  "danceUserCooldown": {
+    "type": "number",
+    "label": "Per User Dance Cooldown (sec)",
+    "value": 5,
+    "min": 0,
+    "max": 3600,
+    "step": 1,
+    "group": "💃 Dance Settings"
+  },
+  "duelGlobalCooldown": {
+    "type": "number",
+    "label": "Global Duel Cooldown (sec)",
+    "value": 25,
+    "min": 0,
+    "max": 3600,
+    "step": 1,
+    "group": "⚔️ Duel Settings"
+  },
+  "allowDodgeEveryone": {
+    "type": "checkbox",
+    "label": "Allow Everyone (overrides other roles)",
+    "value": false,
+    "group": "🕶️ Matrix Dodge"
+  },
+  "allowDodgeViewers": {
+    "type": "checkbox",
+    "label": "Allow Regular Viewers",
+    "value": false,
+    "group": "🕶️ Matrix Dodge"
+  },
+  "allowDodgeSubscribers": {
+    "type": "checkbox",
+    "label": "Allow Subscribers (Twitch)",
+    "value": true,
+    "group": "🕶️ Matrix Dodge"
+  },
+  "allowDodgeVIPs": {
+    "type": "checkbox",
+    "label": "Allow VIPs (Twitch)",
+    "value": true,
+    "group": "🕶️ Matrix Dodge"
+  },
+  "allowDodgeMembers": {
+    "type": "checkbox",
+    "label": "Allow Members (YouTube)",
+    "value": false,
+    "group": "🕶️ Matrix Dodge"
+  },
+  "allowDodgeModerators": {
+    "type": "checkbox",
+    "label": "Allow Moderators",
+    "value": true,
+    "group": "🕶️ Matrix Dodge"
+  },
+  "allowDodgeBroadcaster": {
+    "type": "checkbox",
+    "label": "Allow Broadcaster",
+    "value": true,
+    "group": "🕶️ Matrix Dodge"
+  },
+  "allowDanceEveryone": {
+    "type": "checkbox",
+    "label": "Allow Everyone (⚠️ Overrides everything)",
+    "value": false,
+    "group": "💃 Dance Settings"
+  },
+  "allowDanceViewers": {
+    "type": "checkbox",
+    "label": "Allow Viewers",
+    "value": false,
+    "group": "💃 Dance Settings"
+  },
+  "allowDanceSubscribers": {
+    "type": "checkbox",
+    "label": "Allow Subscribers (Twitch)",
+    "value": true,
+    "group": "💃 Dance Settings"
+  },
+  "allowDanceVIPs": {
+    "type": "checkbox",
+    "label": "Allow VIPs (Twitch)",
+    "value": true,
+    "group": "💃 Dance Settings"
+  },
+  "allowDanceMembers": {
+    "type": "checkbox",
+    "label": "Allow Members (YouTube)",
+    "value": false,
+    "group": "💃 Dance Settings"
+  },
+  "allowDanceModerators": {
+    "type": "checkbox",
+    "label": "Allow Moderators",
+    "value": true,
+    "group": "💃 Dance Settings"
+  },
+  "allowDanceBroadcaster": {
+    "type": "checkbox",
+    "label": "Allow Broadcaster",
+    "value": true,
+    "group": "💃 Dance Settings"
+  },
+  "allowDuelEveryone": {
+    "type": "checkbox",
+    "label": "Allow Everyone (⚠️ Overrides everything)",
+    "value": false,
+    "group": "⚔️ Duel Settings"
+  },
+  "allowDuelViewers": {
+    "type": "checkbox",
+    "label": "Allow Viewers",
+    "value": false,
+    "group": "⚔️ Duel Settings"
+  },
+  "allowDuelSubscribers": {
+    "type": "checkbox",
+    "label": "Allow Subscribers (Twitch)",
+    "value": true,
+    "group": "⚔️ Duel Settings"
+  },
+  "allowDuelVIPs": {
+    "type": "checkbox",
+    "label": "Allow VIPs (Twitch)",
+    "value": true,
+    "group": "⚔️ Duel Settings"
+  },
+  "allowDuelMembers": {
+    "type": "checkbox",
+    "label": "Allow Members (YouTube)",
+    "value": false,
+    "group": "⚔️ Duel Settings"
+  },
+  "allowDuelModerators": {
+    "type": "checkbox",
+    "label": "Allow Moderators",
+    "value": true,
+    "group": "⚔️ Duel Settings"
+  },
+  "allowDuelBroadcaster": {
+    "type": "checkbox",
+    "label": "Allow Broadcaster",
+    "value": true,
+    "group": "⚔️ Duel Settings"
+  },
+  "allowClearInfo": {
+    "type": "hidden",
+    "label": "𝗪𝗛𝗢 𝗖𝗔𝗡 𝗖𝗟𝗘𝗔𝗥:",
+    "value": "",
+    "group": "🧹 Clear Permissions"
+  },
+  "allowClearEveryone": {
+    "type": "checkbox",
+    "label": "Allow Everyone (⚠️ Overwrites everything)",
+    "value": false,
+    "group": "🧹 Clear Permissions"
+  },
+  "allowClearViewers": {
+    "type": "checkbox",
+    "label": "Allow Viewers",
+    "value": false,
+    "group": "🧹 Clear Permissions"
+  },
+  "allowClearSubscribers": {
+    "type": "checkbox",
+    "label": "Allow Subscribers (Twitch)",
+    "value": false,
+    "group": "🧹 Clear Permissions"
+  },
+  "allowClearVIPs": {
+    "type": "checkbox",
+    "label": "Allow VIPs (Twitch)",
+    "value": false,
+    "group": "🧹 Clear Permissions"
+  },
+  "allowClearMembers": {
+    "type": "checkbox",
+    "label": "Allow Members (YouTube)",
+    "value": false,
+    "group": "🧹 Clear Permissions"
+  },
+  "allowClearModerators": {
+    "type": "checkbox",
+    "label": "Allow Moderators",
+    "value": true,
+    "group": "🧹 Clear Permissions"
+  },
+  "allowClearBroadcaster": {
+    "type": "checkbox",
+    "label": "Allow Broadcaster",
+    "value": true,
+    "group": "🧹 Clear Permissions"
+  },
+  "maxActiveGingers": {
+    "type": "slider",
+    "label": "Max Simultaneous Characters",
+    "value": 10,
+    "min": 1,
+    "max": 10,
+    "step": 1,
+    "group": "🍪 Characters"
+  },
+  "whenFull": {
+    "type": "dropdown",
+    "label": "When Full",
+    "value": "replace",
+    "options": {
+      "ignore": "Ignore New Characters",
+      "replace": "Replace The Oldest"
+    },
+    "group": "🍪 Characters"
+  },
+  "gingerSize": {
+    "type": "slider",
+    "label": "Character Size",
+    "value": 18,
+    "min": 10,
+    "max": 50,
+    "step": 1,
+    "group": "🍪 Characters"
+  },
+  "randomColor": {
+    "type": "checkbox",
+    "label": "Random Colors",
+    "value": true,
+    "group": "🍪 Characters"
+  },
+  "showBubble": {
+    "type": "checkbox",
+    "label": "Show Username",
+    "value": true,
+    "group": "🍪 Characters"
+  },
+  "bubbleScale": {
+    "type": "slider",
+    "label": "Username Size",
+    "value": 39,
+    "min": 10,
+    "max": 100,
+    "step": 1,
+    "group": "🍪 Characters"
+  },
+  "bottomOffset": {
+    "type": "number",
+    "label": "Bottom Offset (px)",
+    "value": 10,
+    "min": -500,
+    "max": 500,
+    "step": 1,
+    "group": "🍪 Characters"
+  },
+  "walkSpeed": {
+    "type": "slider",
+    "label": "Walk Speed",
+    "value": 8,
+    "min": 1,
+    "max": 20,
+    "step": 1,
+    "group": "🍪 Characters"
+  },
+  "hitSurvive": {
+    "type": "checkbox",
+    "label": "Survive Snowball Hits",
+    "value": false,
+    "group": "🍪 Characters"
+  },
+  "gingerLifetime": {
+    "type": "number",
+    "label": "Duration (Minutes)",
+    "value": 30,
+    "min": 1,
+    "max": 240,
+    "step": 1,
+    "group": "🍪 Characters"
+  },
+  "testSpawn": {
+    "type": "button",
+    "label": "Spawn Test Character",
+    "value": "Spawn",
+    "group": "🧪 Test Buttons"
+  },
+  "testThrow": {
+    "type": "button",
+    "label": "Test Throw",
+    "value": "Throw",
+    "group": "🧪 Test Buttons"
+  },
+  "testDodge": {
+    "type": "button",
+    "label": "Test Matrix Dodge",
+    "value": "Dodge",
+    "group": "🧪 Test Buttons"
+  },
+  "testDance": {
+    "type": "button",
+    "label": "Test Dance",
+    "value": "Dance",
+    "group": "🧪 Test Buttons"
+  },
+  "testDuel": {
+    "type": "button",
+    "label": "Test Duel (Auto-spawn Two)",
+    "value": "Duel",
+    "group": "🧪 Test Buttons"
+  },
+  "testClear": {
+    "type": "button",
+    "label": "Clear All Characters",
+    "value": "Clear",
+    "group": "🧪 Test Buttons"
+  },
+  "widgetVersionInfo": {
+    "type": "hidden",
+    "label": "𝗚𝗜𝗡𝗚𝗘𝗥𝗕𝗥𝗘𝗔𝗗 v2.2 — DANCE + DUEL",
+    "value": "",
+    "group": "ℹ️ Widget Version"
+  },
+  "widgetVersionSeparate": {
+    "type": "hidden",
+    "value": "",
+    "group": "ℹ️ Widget Version"
+  }
+}
